@@ -11,7 +11,51 @@ func CreateVideo(c *gin.Context) {
 	if err := c.ShouldBind(&service); err == nil {
 		res := service.Create()
 		c.JSON(200, res)
-	}else{
+	} else {
+		c.JSON(200, ErrorResponse(err))
+	}
+}
+
+//ShowVideo 视频详情接口
+func ShowVideo(c *gin.Context) {
+	service := service.ShowVideoService{}
+	if err := c.ShouldBind(&service); err == nil {
+		res := service.Show(c.Param("id"))
+		c.JSON(200, res)
+	} else {
+		c.JSON(200, ErrorResponse(err))
+	}
+}
+
+//ListVideo 获取视频列表
+func ListVideo(c *gin.Context) {
+	service := service.ListVideoService{}
+	if err := c.ShouldBind(&service); err == nil {
+		res := service.List()
+		c.JSON(200, res)
+	} else {
+		c.JSON(200, ErrorResponse(err))
+	}
+}
+
+//UpdateVideo 更新视频
+func UpdateVideo(c *gin.Context) {
+	service := service.UpdateVideoService{}
+	if err := c.ShouldBind(&service); err == nil {
+		res := service.Update(c.Param("id"))
+		c.JSON(200, res)
+	} else {
+		c.JSON(200, ErrorResponse(err))
+	}
+}
+
+//DeleteVideo 删除视频
+func DeleteVideo(c *gin.Context)  {
+	service := service.DeleteVideoService{}
+	if err := c.ShouldBind(&service); err == nil {
+		res := service.Delete(c.Param("id"))
+		c.JSON(200, res)
+	} else {
 		c.JSON(200, ErrorResponse(err))
 	}
 }
